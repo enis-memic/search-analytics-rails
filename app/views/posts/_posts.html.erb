@@ -1,0 +1,9 @@
+<turbo-frame id="posts" class="posts-frame">
+  <% @posts.each do |post| %>
+    <div class="post-item" id="<%= dom_id(post) %>">
+      <p class="post-link">
+        <%= link_to post.title, post_path(post), class: 'link', data: { turbo: "false" } %>
+      </p>
+    </div>
+  <% end %>
+</turbo-frame>

@@ -1,0 +1,20 @@
+<p style="color: green"><%= notice %></p>
+
+<h1 class="main-header">Posts</h1>
+
+<%= form_with(url: posts_path, method: :get, data: {controller: "search-form", turbo_frame: "posts", turbo_action: "advance"}, html: { class: "search-form" }) do |form| %>
+  <div class="search-container">
+    <div class="search-input">
+      <%= form.text_field :query, class: "search-text-field", data: { action: "input->search-form#search" } %>
+      <%= form.submit 'Search', class: "search-submit-btn" %>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to "New post", new_post_path, class: "button new-button" %>
+
+<%= link_to "Search Analytics", analytics_path %>
+
+<div>
+  <%= render "posts", posts: @posts %>
+</div>
