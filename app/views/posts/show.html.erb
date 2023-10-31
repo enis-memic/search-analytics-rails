@@ -1,0 +1,9 @@
+<p class="notice-message"><%= notice %></p>
+
+<%= render @post %>
+
+<div class="button-container">
+  <%= link_to "Back to posts", posts_path, class: 'button back-button' %>
+  <%= link_to "Edit this post", edit_post_path(@post), class: 'button edit-button' %>
+  <%= button_to "Destroy this post", @post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button destroy-button' %>
+</div>
