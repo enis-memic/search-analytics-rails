@@ -1,0 +1,19 @@
+<div class="analytics-container">
+
+<table>
+  <thead>
+    <tr>
+      <th>Search Query</th>
+      <th>View Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user_queries.each do |query| %>
+      <tr>
+        <td><%= query.search_query %></td>
+        <td><%= Query.views_count(query.search_query, request.remote_ip) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

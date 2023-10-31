@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+  
+  <%= form_with(url: posts_path, method: :get, data: {controller: "search-form", turbo_frame: "posts", turbo_action: "advance"}, html: { class: "search-form" }) do |form| %>
+    <div class="search-container">
+      <div class="search-input">
+        <%= form.text_field :query, class: "search-text-field", data: { action: "input->search-form#search" } %>
+        <%= form.submit 'Search', class: "search-submit-btn" %>
+      </div>
+    </div>
+  <% end %>
+ 
+
+<div class="posts-container">
+  <%= render "posts", posts: @posts %>
+</div>
