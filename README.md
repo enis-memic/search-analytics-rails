@@ -6,7 +6,7 @@
 
 ## 🚀 Live Version <a name="live-demo"></a>
 
-- [Search App]()
+- [Search App](https://search-app-rails-87e79ed68666.herokuapp.com/)
 
 <hr>
 
