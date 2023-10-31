@@ -1,10 +1,14 @@
 <turbo-frame id="posts" class="posts-frame">
   <% @posts.each do |post| %>
-    <div class="post-item" id="<%= dom_id(post) %>">
-      <p class="post-link">
-        <%= link_to post.title, post_path(post), class: 'link', data: { turbo: "false" } %>
-      </p>
-      <p class="post-body"><%= truncate(post.body, length: 200, separator: '.').to_s + '...' %></p>
-    </div>
+    <%= link_to post_path(post), class: 'post-link', data: { turbo: "false" } do %>
+      <div class="post-item" id="<%= dom_id(post) %>">
+        <p class="post-title">
+          <%= post.title %>
+        </p>
+        <p class="post-body">
+          <%= truncate(post.body, length: 200, separator: '.').to_s + '...' %>
+        </p>
+      </div>
+    <% end %>
   <% end %>
 </turbo-frame>
