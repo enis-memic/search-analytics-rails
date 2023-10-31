@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
     before_action :set_post, only: %i[ show edit update destroy ]
   
-    # GET /posts or /posts.json
     def index
       query = params[:query].to_s.strip
   
@@ -72,7 +71,6 @@ class PostsController < ApplicationController
         @post = Post.find(params[:id])
       end
   
-      # Only allow a list of trusted parameters through.
       def post_params
         params.require(:post).permit(:title, :body)
       end
