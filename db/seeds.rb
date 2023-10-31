@@ -8,5 +8,5 @@
 25.times do |_i|
     # Seed posts with random data
     Post.create(title: Faker::Book.title,
-                body: Faker::Lorem.paragraph(sentence_count: 10))
+                body: Faker::Lorem.paragraph(sentence_count: 100))
 end

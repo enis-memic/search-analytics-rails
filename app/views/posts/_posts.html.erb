@@ -4,6 +4,7 @@
       <p class="post-link">
         <%= link_to post.title, post_path(post), class: 'link', data: { turbo: "false" } %>
       </p>
+      <p class="post-body"><%= truncate(post.body, length: 200, separator: '.').to_s + '...' %></p>
     </div>
   <% end %>
 </turbo-frame>
