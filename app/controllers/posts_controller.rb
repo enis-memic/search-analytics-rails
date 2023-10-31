@@ -11,7 +11,7 @@ class PostsController < ApplicationController
           search_query: query,
           ip_address: request.remote_ip,
           views_count: 1
-        ).update_or_save!
+        ).process!
       else
         @posts = Post.all
       end

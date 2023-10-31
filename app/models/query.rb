@@ -1,7 +1,7 @@
 class Query < ApplicationRecord
     validates :search_query, presence: true
   
-    def update_or_save!
+    def process!
       if query_already_searched? && !candidate_for_update?
         duplicate_query.increment!(:views_count) 
       else
