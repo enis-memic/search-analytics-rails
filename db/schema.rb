@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_30_155041) do
     t.string "ip_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "views_count"
+    t.integer "views_count", default: 0
   end
 
 end

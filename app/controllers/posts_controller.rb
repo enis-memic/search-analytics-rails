@@ -6,7 +6,12 @@ class PostsController < ApplicationController
   
       if query.present?
         @posts = Post.where("LOWER(title) LIKE ?", "%#{query.downcase}%")
-        Query.store_complete_queries(query, request.remote_ip)
+
+        Query.new(
+          search_query: query,
+          ip_address: request.remote_ip,
+          views_count: 1
+        ).update_or_save!
       else
         @posts = Post.all
       end

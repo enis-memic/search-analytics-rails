@@ -1,29 +1,41 @@
 class Query < ApplicationRecord
     validates :search_query, presence: true
   
-    def self.store_complete_queries(query, ip_address)
-      return if should_discard_query?(query, ip_address)
-      
-      create(search_query: query, ip_address: ip_address)
+    def update_or_save!
+      if query_already_searched? && !candidate_for_update?
+        duplicate_query.increment!(:views_count) 
+      else
+        candidate_for_update? ? latest_query.update!(search_query: search_query) : save!
+      end
     end
 
-    def self.views_count(search_query, ip_address)
-      where(ip_address: ip_address, search_query: search_query).count
-    end
-  
     private
-  
-    def self.should_discard_query?(query, ip_address)
-      last_query = where(ip_address: ip_address).last
-  
-      return false if last_query.nil? || last_query.updated_at < 15.seconds.ago
-      return true if last_query.search_query.include?(query)
-  
-      if query.include?(last_query.search_query)
-        last_query.update(search_query: query)
-        return true
-      end
-  
+
+    def latest_query
+      @latest_query ||= self.class.where(ip_address: ip_address).last
+    end
+
+    def duplicate_query
+      @duplicate_query ||= self.class.find_by(ip_address: ip_address, search_query: search_query)
+    end
+
+    def candidate_for_update?
+      return false unless latest_query
+      return true if in_search_session? && search_query.include?(latest_query.search_query)
+
+      return false
+    end
+
+    def in_search_session?
+      latest_query.updated_at > 15.seconds.ago
+    end
+
+    def query_already_searched?
+      return false unless duplicate_query 
+
+      return true if search_query.include?(latest_query.search_query) && !in_search_session?
+      return true if !search_query.include?(latest_query.search_query) && in_search_session?
+ 
       false
     end
   end

@@ -11,7 +11,7 @@
     <% @user_queries.each do |query| %>
       <tr>
         <td><%= query.search_query %></td>
-        <td><%= Query.views_count(query.search_query, request.remote_ip) %></td>
+        <td><%= query.views_count %></td>
       </tr>
     <% end %>
   </tbody>
