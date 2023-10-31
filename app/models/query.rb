@@ -32,8 +32,7 @@ class Query < ApplicationRecord
 
     def query_already_searched?
       return false unless duplicate_query 
-
-      return true if search_query.include?(latest_query.search_query) && !in_search_session?
+      return true if !in_search_session?
       return true if !search_query.include?(latest_query.search_query) && in_search_session?
  
       false
